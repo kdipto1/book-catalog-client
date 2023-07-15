@@ -1,3 +1,4 @@
+import MainLayout from "./layouts/MainLayout";
 import { useGetBooksQuery } from "./redux/features/book/bookApi";
 import { decrement, increment } from "./redux/features/count/counterSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
@@ -26,6 +27,7 @@ function App() {
   console.log(data);
   return (
     <>
+      <MainLayout />
       <h1 className="text-2xl">{value}</h1>
       <button onClick={() => dispatch(increment())} className="btn btn-square">
         {" "}
