@@ -1,17 +1,15 @@
 import React from "react";
-import { useGetBooksQuery } from "../../redux/features/book/bookApi";
+import {
+  useGetBooksQuery,
+  useGetHomeBooksQuery,
+} from "../../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { ApiResponse, IBook } from "../../types/globalTypes";
 import BookCard from "../Shared/BookCard";
 
 export default function HomeBooks() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, isLoading, isError } = useGetBooksQuery({
-    searchTerm: "",
-    genre: "",
-    publicationYear: "",
-    sortBy: "createdAt",
-  }) as {
+  const { data, isLoading, isError } = useGetHomeBooksQuery(undefined) as {
     data: ApiResponse;
     isLoading: boolean;
     isError: any;

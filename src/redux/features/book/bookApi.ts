@@ -25,8 +25,11 @@ const bookApi = api.injectEndpoints({
         };
       },
     }),
+    getHomeBooks: builder.query({
+      query: () => `/book/homeBooks`,
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetBooksQuery } = bookApi;
+export const { useGetBooksQuery, useGetHomeBooksQuery } = bookApi;
