@@ -4,6 +4,8 @@
 import { useForm } from "react-hook-form";
 import { useUserLoginMutation } from "../../redux/features/user/userApi";
 import { SerializedError } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../redux/hook";
+import { loginUser } from "../../redux/features/user/userSlice";
 
 interface LoginFormValues {
   email: string;
@@ -16,14 +18,33 @@ interface CustomError extends SerializedError {
   };
 }
 
+interface ILoginResponse {
+  data: {
+    accessToken: string;
+    userId: string;
+  };
+  message: string;
+  statusCode: number;
+  success: string;
+}
+
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
   const [login, { isLoading, isError, error }] = useUserLoginMutation();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await login(data).unwrap();
+      const response: ILoginResponse = await login(data).unwrap();
+
+      const userState = {
+        accessToken: response.data.accessToken,
+        userId: response.data.userId,
+      };
+      localStorage.setItem("accessToken", userState.accessToken);
+      localStorage.setItem("userId", userState.userId);
+      dispatch(loginUser(userState));
       console.log("Login successful", response);
     } catch (error) {
       console.error("Login error", error);

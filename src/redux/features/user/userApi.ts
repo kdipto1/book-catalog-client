@@ -5,7 +5,7 @@ interface ICredential {
   password: string;
 }
 
-const bookApi = api.injectEndpoints({
+const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     userLogin: builder.mutation({
       query: (credentials: ICredential) => ({
@@ -25,4 +25,4 @@ const bookApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useUserLoginMutation, useUserSignupMutation } = bookApi;
+export const { useUserLoginMutation, useUserSignupMutation } = userApi;
