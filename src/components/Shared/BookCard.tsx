@@ -10,10 +10,7 @@ export default function BookCard({ book }: BookCardProps) {
   return (
     <div className="card card-compact w-72 bg-base-100 shadow-xl mx-auto">
       <figure>
-        <img
-          src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Book"
-        />
+        <img src="" alt="Book" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{book?.title}</h2>
