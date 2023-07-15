@@ -6,7 +6,7 @@ import userStateSlice from "./features/user/userSlice";
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    user: userStateSlice,
+    userState: userStateSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

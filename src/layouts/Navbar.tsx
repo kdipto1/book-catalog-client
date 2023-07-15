@@ -1,12 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { removeUser } from "../redux/features/user/userSlice";
 
 export default function Navbar() {
+  const userId = useAppSelector((state) => state.userState.userId);
+  // const userId = localStorage.getItem("userId");
+  const dispatch = useAppDispatch();
+  console.log(userId);
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link to="/">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <Link className="btn btn-ghost normal-case text-xl" to="/">
+          daisyUI
         </Link>
       </div>
       <div className="flex-none">
@@ -59,12 +65,21 @@ export default function Navbar() {
                 <span className="badge">New</span>
               </a>
             </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
+            {!userId && (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+            {userId && (
+              <li>
+                <button onClick={() => dispatch(removeUser())}>Logout</button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
