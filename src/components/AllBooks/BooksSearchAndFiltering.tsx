@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface SearchFormData {
-  searchQuery: string;
+  searchTerm: string;
   genre: string;
   publicationYear: string;
 }
@@ -25,24 +25,49 @@ export default function BooksSearchAndFiltering({
   };
 
   return (
-    <div>
-      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("searchQuery")} placeholder="Search books" />
-        <select {...register("genre")} defaultValue="">
-          <option value="">All Genres</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="romance">Romance</option>
-          <option value="mystery">Mystery</option>
-          {/* Add more genre options */}
-        </select>
-        <select {...register("publicationYear")} defaultValue="">
-          <option value="">All Years</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          {/* Add more publication year options */}
-        </select>
-        <button type="submit">Search</button>
+    <div className="pl-4">
+      <form
+        className="grid grid-cols-1 gap-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <label className="text-center font-semibold pt-4" htmlFor="searchBook">
+          Search Book{" "}
+        </label>
+        <input
+          id="searchBook"
+          {...register("searchTerm")}
+          type="text"
+          placeholder="Search books"
+          className="input input-bordered input-info w-full max-w-xs "
+        />
+        <button
+          className="btn btn-primary bg-slate-500 p-4 text-sm"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+
+      <p className="text-center font-semibold pt-6">
+        Filter Books By Genre And Publication Year:
+      </p>
+      <form className="py-3" onChange={handleSubmit(onSubmit)}>
+        <input
+          {...register("genre")}
+          className="input input-bordered input-info w-full max-w-xs"
+          type="text"
+          placeholder="Genre"
+        />
+      </form>
+      <form className="" onChange={handleSubmit(onSubmit)}>
+        <input
+          {...register("publicationYear")}
+          className="input input-bordered input-info w-full max-w-xs"
+          type="number"
+          placeholder="YYYY"
+          min="0"
+          max="2023"
+        />
       </form>
     </div>
   );
