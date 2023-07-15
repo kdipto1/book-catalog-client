@@ -14,8 +14,15 @@ const bookApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
+    userSignup: builder.mutation({
+      query: (credentials: ICredential) => ({
+        url: "/auth/signup",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useUserLoginMutation } = bookApi;
+export const { useUserLoginMutation, useUserSignupMutation } = bookApi;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { useUserLoginMutation } from "../../redux/features/user/userApi";
 import { SerializedError } from "@reduxjs/toolkit";
@@ -39,7 +39,7 @@ export default function LoginForm() {
           <input
             className="input input-bordered input-info w-full max-w-xs"
             type="email"
-            {...register("email")}
+            {...register("email", { required: "Email is required!" })}
           />
         </div>
         <div>
@@ -47,7 +47,7 @@ export default function LoginForm() {
           <input
             className="input input-bordered input-info w-full max-w-xs"
             type="password"
-            {...register("password")}
+            {...register("password", { required: "Password is required" })}
           />
         </div>
         <button className="btn btn-accent" type="submit" disabled={isLoading}>
