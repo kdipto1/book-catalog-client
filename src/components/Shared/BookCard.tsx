@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IBook } from "../../types/globalTypes";
 
 interface BookCardProps {
@@ -17,7 +18,9 @@ export default function BookCard({ book }: BookCardProps) {
         <p>Genre: {book?.genre}</p>
         <p>Publication Date: {formattedDate}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <Link to={`/book-detail/${book._id}`} className="btn btn-primary">
+            Details
+          </Link>
         </div>
       </div>
     </div>

@@ -28,8 +28,13 @@ const bookApi = api.injectEndpoints({
     getHomeBooks: builder.query({
       query: () => `/book/homeBooks`,
     }),
+    getSingleBook: builder.query({
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      query: (id) => ({ url: `/book/${id}` }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetBooksQuery, useGetHomeBooksQuery } = bookApi;
+export const { useGetBooksQuery, useGetHomeBooksQuery, useGetSingleBookQuery } =
+  bookApi;

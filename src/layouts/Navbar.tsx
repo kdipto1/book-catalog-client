@@ -9,7 +9,7 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   console.log(userId);
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-blue-400">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-xl" to="/">
           daisyUI
