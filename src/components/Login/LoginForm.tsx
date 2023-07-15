@@ -42,8 +42,7 @@ export default function LoginForm() {
         accessToken: response.data.accessToken,
         userId: response.data.userId,
       };
-      localStorage.setItem("accessToken", userState.accessToken);
-      localStorage.setItem("userId", userState.userId);
+
       dispatch(loginUser(userState));
       console.log("Login successful", response);
     } catch (error) {

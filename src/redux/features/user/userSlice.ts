@@ -4,28 +4,28 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
 interface UserState {
-  accessToken: string;
-  userId: string;
+  accessToken: string | null;
+  userId: string | null;
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
-  accessToken: "string",
-  userId: "",
+  accessToken: localStorage.getItem("accessToken"),
+  userId: localStorage.getItem("userId"),
 };
 
 export const userStateSlice = createSlice({
-  name: "user",
+  name: "userState",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     loginUser: (state, action: PayloadAction<UserState>) => {
-      state.accessToken = action.payload.accessToken;
-      state.userId = action.payload.userId;
+      localStorage.setItem("accessToken", action.payload.accessToken!);
+      localStorage.setItem("userId", action.payload.userId!);
     },
     removeUser: (state, action: PayloadAction<UserState>) => {
-      state.accessToken = "";
-      state.userId = "";
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
     },
   },
 });
