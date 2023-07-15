@@ -4,6 +4,7 @@ interface SearchFormData {
   searchTerm: string;
   genre: string;
   publicationYear: string;
+  sortBy?: string;
 }
 
 const bookApi = api.injectEndpoints({
@@ -15,6 +16,7 @@ const bookApi = api.injectEndpoints({
         if (arg.genre) queryParams.append("genre", arg.genre);
         if (arg.publicationYear)
           queryParams.append("publicationYear", arg.publicationYear);
+        if (arg.sortBy) queryParams.append("sortBy", arg.sortBy);
 
         return {
           url: `/book${

@@ -6,7 +6,12 @@ import BookCard from "../Shared/BookCard";
 
 export default function HomeBooks() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, isLoading, isError } = useGetBooksQuery(undefined) as {
+  const { data, isLoading, isError } = useGetBooksQuery({
+    searchTerm: "",
+    genre: "",
+    publicationYear: "",
+    sortBy: "createdAt",
+  }) as {
     data: ApiResponse;
     isLoading: boolean;
     isError: any;

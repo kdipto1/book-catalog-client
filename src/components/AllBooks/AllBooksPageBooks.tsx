@@ -11,12 +11,11 @@ interface SearchFormData {
 }
 
 interface AllBooksPageBooksProps {
-  setSearchData: Dispatch<SetStateAction<SearchFormData>>;
+  // setSearchData: Dispatch<SetStateAction<SearchFormData>>;
   searchData: SearchFormData;
 }
 
 export default function AllBooksPageBooks({
-  setSearchData,
   searchData,
 }: AllBooksPageBooksProps) {
   console.log(searchData, "All bosks");

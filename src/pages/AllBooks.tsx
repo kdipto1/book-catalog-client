@@ -28,7 +28,7 @@ export default function AllBooks() {
         </div>
         <div className="col-start-2 col-end-6">
           <AllBooksPageBooks
-            setSearchData={setSearchData}
+            // setSearchData={setSearchData}
             searchData={searchData}
           />
         </div>
