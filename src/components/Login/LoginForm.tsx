@@ -1,16 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useUserLoginMutation } from "../../redux/features/user/userApi";
+import { SerializedError } from "@reduxjs/toolkit";
 
 interface LoginFormValues {
   email: string;
   password: string;
 }
 
+interface CustomError extends SerializedError {
+  data?: {
+    message: string;
+  };
+}
+
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
-  const [login, { isLoading, isError }] = useUserLoginMutation();
+  const [login, { isLoading, isError, error }] = useUserLoginMutation();
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
@@ -45,7 +53,12 @@ export default function LoginForm() {
         <button className="btn btn-accent" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Log in"}
         </button>
-        {isError && <div>Error occurred while logging in</div>}
+        {isError && error && (
+          <div>
+            {(error as CustomError)?.data?.message ||
+              (error as SerializedError).message}
+          </div>
+        )}
       </form>
     </div>
   );
