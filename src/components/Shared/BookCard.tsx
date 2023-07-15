@@ -8,7 +8,7 @@ interface BookCardProps {
 export default function BookCard({ book }: BookCardProps) {
   const formattedDate = book?.publicationDate.toLocaleDateString();
   return (
-    <div className="card card-compact w-96 bg-base-100 shadow-xl">
+    <div className="card card-compact w-72 bg-base-100 shadow-xl mx-auto">
       <figure>
         <img
           src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"

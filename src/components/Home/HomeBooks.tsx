@@ -21,7 +21,7 @@ export default function HomeBooks() {
       publicationDate: new Date(item.publicationDate),
     })) || [];
   return (
-    <div>
+    <div className="grid grid-cols-4 gap-3 pt-4 bg-slate-950">
       {books?.map((book: IBook) => (
         <BookCard key={book._id} book={book} />
       ))}
