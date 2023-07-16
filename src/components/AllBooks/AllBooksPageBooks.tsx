@@ -1,4 +1,3 @@
-import React, { Dispatch, SetStateAction } from "react";
 import { useGetBooksQuery } from "../../redux/features/book/bookApi";
 import { ApiResponse, IBook } from "../../types/globalTypes";
 import { PropagateLoader } from "react-spinners";
@@ -11,7 +10,6 @@ interface SearchFormData {
 }
 
 interface AllBooksPageBooksProps {
-  // setSearchData: Dispatch<SetStateAction<SearchFormData>>;
   searchData: SearchFormData;
 }
 

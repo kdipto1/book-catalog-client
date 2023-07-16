@@ -1,8 +1,4 @@
-import React from "react";
-import {
-  useGetBooksQuery,
-  useGetHomeBooksQuery,
-} from "../../redux/features/book/bookApi";
+import { useGetHomeBooksQuery } from "../../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { ApiResponse, IBook } from "../../types/globalTypes";
 import BookCard from "../Shared/BookCard";
