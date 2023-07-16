@@ -10,8 +10,8 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: Date;
-  addedBy?: string;
-  reviews: IReviews[];
+  addedBy: string;
+  reviews?: IReviews[];
 }
 
 export interface ApiResponse {

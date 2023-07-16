@@ -1,3 +1,4 @@
+import { IBook } from "../../../types/globalTypes";
 import { api } from "../../api/apiSlice";
 
 interface SearchFormData {
@@ -24,17 +25,32 @@ const bookApi = api.injectEndpoints({
           }`,
         };
       },
+      providesTags: ["book"],
     }),
     getHomeBooks: builder.query({
       query: () => `/book/homeBooks`,
+      providesTags: ["book"],
     }),
     getSingleBook: builder.query({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       query: (id) => ({ url: `/book/${id}` }),
+      providesTags: ["book"],
+    }),
+    addNewBook: builder.mutation({
+      query: (book: IBook) => ({
+        url: "/book",
+        method: "POST",
+        body: book,
+      }),
+      invalidatesTags: ["book"],
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetBooksQuery, useGetHomeBooksQuery, useGetSingleBookQuery } =
-  bookApi;
+export const {
+  useGetBooksQuery,
+  useGetHomeBooksQuery,
+  useGetSingleBookQuery,
+  useAddNewBookMutation,
+} = bookApi;
