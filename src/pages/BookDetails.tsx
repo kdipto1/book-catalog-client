@@ -6,11 +6,12 @@ import { IBook } from "../types/globalTypes";
 
 import { useAppSelector } from "../redux/hook";
 import { useState } from "react";
+import { DeleteConfirmationModal } from "../components/BookDetails/DeleteConfirmationModal";
 
 export default function BookDetails() {
   const { id } = useParams();
   const { userId } = useAppSelector((state) => state.userState);
-  const [editButtonState, setEditButtonState] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data, isLoading } = useGetSingleBookQuery(id) as {
     data: {
@@ -50,7 +51,21 @@ export default function BookDetails() {
                 Edit
               </Link>
             )}
-            {isBookAdder && <button className="btn btn-primary">Delete</button>}
+            {isBookAdder && (
+              <button
+                onClick={() => setIsDeleteModalOpen(true)}
+                className="btn btn-primary"
+              >
+                Delete
+              </button>
+            )}
+            {isDeleteModalOpen && (
+              <DeleteConfirmationModal
+                bookId={book._id}
+                onDelete={() => setIsDeleteModalOpen(false)}
+                onCancel={() => setIsDeleteModalOpen(false)}
+              />
+            )}
           </div>
         </div>
       </div>
