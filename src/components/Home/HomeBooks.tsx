@@ -12,7 +12,6 @@ export default function HomeBooks() {
   };
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
   if (isError) return null;
-  console.log(data, "iii");
 
   const books: IBook[] =
     data?.data?.map((item: IBook) => ({

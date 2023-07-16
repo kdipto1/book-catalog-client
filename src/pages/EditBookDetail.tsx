@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
 import { PropagateLoader } from "react-spinners";
 import {
@@ -11,15 +11,10 @@ import { IBook } from "../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
 
 interface IBookDetail {
-  _id: string;
   title: string;
   author: string;
   genre: string;
   publicationData: Date;
-}
-
-interface IBookDetailProp {
-  book: IBookDetail;
 }
 
 interface CustomError extends SerializedError {
@@ -29,9 +24,9 @@ interface CustomError extends SerializedError {
 }
 
 export default function EditBookDetail() {
-  const { id } = useParams();
-  const [editBookDetails, { isLoading: isEditing, isError, error }] =
-    useEditBookDetailsMutation();
+  const { id } = useParams() as {
+    id: string;
+  };
   const { data, isLoading } = useGetSingleBookQuery(id) as {
     data: {
       success: boolean;
@@ -41,34 +36,38 @@ export default function EditBookDetail() {
     };
     isLoading: boolean;
   };
+  const [editBookDetails, { isLoading: isEditing, isError, error }] =
+    useEditBookDetailsMutation();
 
-  const { register, handleSubmit } = useForm<IBookDetail>(); // Move useForm hook outside of conditional scope
+  const { register, handleSubmit } = useForm<IBookDetail>();
 
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
 
   const book = {
     _id: data?.data?._id,
     title: data?.data.title,
-    author: data.data.author,
-    genre: data.data.genre,
-    publicationData: data.data.publicationDate,
-    addedBy: data.data.addedBy,
+    author: data?.data.author,
+    genre: data?.data.genre,
+    publicationData: data?.data.publicationDate,
+    addedBy: data?.data.addedBy,
   };
 
   const formattedDate = new Date(book?.publicationData);
-  const format = formattedDate.toDateString();
-
-  // Move useEditBookDetailsMutation hook outside of conditional scope
+  const format = formattedDate.toLocaleDateString("en-GB"); // Convert to DD-MM-YYYY format
 
   const onSubmit = async (data: IBookDetail) => {
     try {
       const updatedBook: IBook = {
+        publicationDate: data.publicationData,
         ...book,
         ...data,
       };
-      console.log(updatedBook);
 
-      const response = await editBookDetails(updatedBook).unwrap();
+      // Pass the 'id' and 'book' properties in the mutation call
+      const response = await editBookDetails({
+        id,
+        book: updatedBook,
+      }).unwrap();
       console.log("Edit book successful", response);
     } catch (error) {
       console.error("Edit book error", error);
@@ -89,7 +88,7 @@ export default function EditBookDetail() {
           />
         </div>
         <div>
-          <label>Author:</label>
+          <label>Author: {book?.author}</label>
           <input
             defaultValue={book?.author}
             className="input input-bordered input-info w-full max-w-xs"
@@ -107,9 +106,9 @@ export default function EditBookDetail() {
           />
         </div>
         <div>
-          <label>Publication Data: {format}</label>
+          <label>Publication Date: {format}</label>
           <input
-            defaultValue={format}
+            defaultValue={format} // Set the formatted date as the default value
             className="input input-bordered input-info w-full max-w-xs"
             type="date"
             {...register("publicationData")}

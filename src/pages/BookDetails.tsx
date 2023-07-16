@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { IBook } from "../types/globalTypes";
-import BookDetailsAndEdit from "../components/BookDetails/BookDetailsAndEdit";
+
 import { useAppSelector } from "../redux/hook";
 import { useState } from "react";
 
@@ -23,7 +23,6 @@ export default function BookDetails() {
   };
 
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
-  console.log(data.data);
   const book = {
     _id: data?.data?._id,
     title: data?.data.title,
