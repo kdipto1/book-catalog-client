@@ -10,7 +10,7 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: Date;
-  addedBy: string;
+  addedBy?: string;
   reviews: IReviews[];
 }
 
