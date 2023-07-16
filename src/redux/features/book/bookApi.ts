@@ -44,6 +44,14 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["book"],
     }),
+    editBookDetails: builder.mutation({
+      query: (book: Partial<IBook>) => ({
+        url: "/book",
+        method: "PATCH",
+        body: book,
+      }),
+      invalidatesTags: ["book"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -53,4 +61,5 @@ export const {
   useGetHomeBooksQuery,
   useGetSingleBookQuery,
   useAddNewBookMutation,
+  useEditBookDetailsMutation,
 } = bookApi;

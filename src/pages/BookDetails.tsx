@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { IBook } from "../types/globalTypes";
@@ -46,7 +46,11 @@ export default function BookDetails() {
           <p>Genre: {book.genre}</p>
           <p>Publication Date: {format}</p>
           <div className="card-actions justify-end">
-            {isBookAdder && <button className="btn btn-primary">Edit</button>}
+            {isBookAdder && (
+              <Link to={`/edit-book/${book._id}`} className="btn btn-primary">
+                Edit
+              </Link>
+            )}
             {isBookAdder && <button className="btn btn-primary">Delete</button>}
           </div>
         </div>

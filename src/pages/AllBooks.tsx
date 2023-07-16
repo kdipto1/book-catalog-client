@@ -11,7 +11,6 @@ interface SearchFormData {
 }
 
 export default function AllBooks() {
-  const { userId } = useAppSelector((state) => state.userState);
   const [searchData, setSearchData] = useState<SearchFormData>({
     searchTerm: "",
     genre: "",
