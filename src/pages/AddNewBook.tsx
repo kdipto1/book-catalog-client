@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from "react";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "react-hook-form";
 import { useAddNewBookMutation } from "../redux/features/book/bookApi";
 import { IBook } from "../types/globalTypes";
-import { useAppSelector } from "../redux/hook";
 import { SerializedError } from "@reduxjs/toolkit";
 
-interface IBookFormValues {
+interface IBookFormValues extends Partial<IBook> {
   title: string;
   author: string;
   genre: string;
   publicationDate: Date;
 }
+
 interface CustomError extends SerializedError {
   data?: {
     message: string;
@@ -19,32 +19,31 @@ interface CustomError extends SerializedError {
 }
 
 export default function AddNewBook() {
-  const { register, handleSubmit } = useForm<IBookFormValues>();
-  const { userId } = useAppSelector((state) => state.userState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IBookFormValues>();
 
   const [addBook, { isLoading, isError, error }] = useAddNewBookMutation();
-  // const dispatch = useAppDispatch();
 
   const onSubmit = async (data: IBookFormValues) => {
     try {
-      const bookData: IBook = {
-        ...data,
-        addedBy: userId,
-      };
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await addBook(bookData).unwrap();
-
+      const response = await addBook(data).unwrap();
       console.log("Book added successfully", response);
     } catch (error) {
-      console.error("Login error", error);
+      console.error("Add book error", error);
     }
   };
+
   return (
-    <div>
-      <div>
-        <h1>Add New Book</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="mx-auto text-white font-semibold text-center h-screen bg-green-400">
+      <h1 className="text-center">Add New Book</h1>
+      <div className="mx-auto my-auto card w-96">
+        <form
+          className="flex justify-start content-start card w-auto mr-auto"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
             <label>Title:</label>
             <input
@@ -52,6 +51,7 @@ export default function AddNewBook() {
               type="text"
               {...register("title", { required: "Title is required" })}
             />
+            {errors.title && <div>{errors.title.message}</div>}
           </div>
           <div>
             <label>Author:</label>
@@ -60,6 +60,7 @@ export default function AddNewBook() {
               type="text"
               {...register("author", { required: "Author is required" })}
             />
+            {errors.author && <div>{errors.author.message}</div>}
           </div>
           <div>
             <label>Genre:</label>
@@ -68,20 +69,26 @@ export default function AddNewBook() {
               type="text"
               {...register("genre", { required: "Genre is required" })}
             />
+            {errors.genre && <div>{errors.genre.message}</div>}
           </div>
           <div>
-            <label>Publication Data:</label>
+            <label>Publication Date:</label>
             <input
-              className="input input-bordered input-info w-full max-w-xs"
+              className="input input-bordered input-info w-full max-w-xs text-black"
               type="date"
               {...register("publicationDate", {
                 required: "Publication date is required",
               })}
             />
+            {errors.publicationDate && (
+              <div>{errors.publicationDate.message}</div>
+            )}
           </div>
-          <button className="btn btn-accent" type="submit" disabled={isLoading}>
-            {isLoading ? "Adding Book..." : "Add Book"}
-          </button>
+          <div>
+            <button className="btn " type="submit" disabled={isLoading}>
+              {isLoading ? "Adding Book..." : "Add Book"}
+            </button>
+          </div>
           {isError && error && (
             <div>
               {(error as CustomError)?.data?.message ||

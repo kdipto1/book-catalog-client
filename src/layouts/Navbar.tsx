@@ -1,18 +1,16 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { removeUser } from "../redux/features/user/userSlice";
 
 export default function Navbar() {
   const userId = useAppSelector((state) => state.userState.userId);
-  // const userId = localStorage.getItem("userId");
   const dispatch = useAppDispatch();
   console.log(userId);
   return (
     <div className="navbar bg-blue-400">
       <div className="flex-1">
-        <Link className="btn btn-ghost normal-case text-xl" to="/">
-          daisyUI
+        <Link className="btn btn-ghost normal-case text-white text-xl" to="/">
+          book
         </Link>
       </div>
       <div className="flex-none">
@@ -57,7 +55,7 @@ export default function Navbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 border-4 border-green-400 rounded-box w-52"
           >
             <li>
               <a className="justify-between">

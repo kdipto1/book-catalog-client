@@ -1,4 +1,4 @@
-import { IBook } from "../../../types/globalTypes";
+import { IBook, IBookFormValues } from "../../../types/globalTypes";
 import { api } from "../../api/apiSlice";
 
 interface SearchFormData {
@@ -37,7 +37,7 @@ const bookApi = api.injectEndpoints({
       providesTags: ["book"],
     }),
     addNewBook: builder.mutation({
-      query: (book: IBook) => ({
+      query: (book: IBookFormValues) => ({
         url: "/book",
         method: "POST",
         body: book,

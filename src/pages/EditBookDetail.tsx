@@ -54,7 +54,7 @@ export default function EditBookDetail() {
 
   const formattedDate = new Date(book?.publicationData);
   const format = formattedDate.toLocaleDateString("en-GB"); // Convert to DD-MM-YYYY format
-
+  console.log(format);
   const onSubmit = async (data: IBookDetail) => {
     try {
       const updatedBook: IBook = {
@@ -75,9 +75,9 @@ export default function EditBookDetail() {
   };
 
   return (
-    <div>
-      <h1>Edit Book Detail</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="min-h-screen bg-green-400">
+      <h1 className="text-center py-6 font-bold  text-4xl">Edit Book Detail</h1>
+      <form className="w-96 mx-auto " onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Title: {book?.title}</label>
           <input
@@ -115,9 +115,11 @@ export default function EditBookDetail() {
           />
         </div>
 
-        <button className="btn btn-accent" type="submit" disabled={isEditing}>
-          {isEditing ? "Updating Book..." : "Update Book"}
-        </button>
+        <div>
+          <button className="btn btn-block" type="submit" disabled={isEditing}>
+            {isEditing ? "Updating Book..." : "Update Book"}
+          </button>
+        </div>
         {isError && error && (
           <div>
             {(error as CustomError)?.data?.message ||

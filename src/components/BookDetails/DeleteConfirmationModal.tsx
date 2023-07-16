@@ -39,18 +39,21 @@ export const DeleteConfirmationModal: React.FC<
 
   return (
     <div className="fixed inset-0 flex items-center justify-center">
-      <div className="bg-white w-96 rounded p-6">
+      <div className="bg-base-200 border-2 border-red-400 text-red-400 w-96 rounded p-6">
         <h3 className="text-lg font-semibold mb-4">Confirm Deletion</h3>
         <p className="mb-4">Are you sure you want to delete this book?</p>
         <div className="flex justify-end">
           <button
-            className="btn btn-primary mr-2"
+            className="btn bg-red-400 text-white hover:text-black mr-2"
             onClick={handleDelete}
             disabled={isDeleting}
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </button>
-          <button className="btn btn-secondary" onClick={handleCancel}>
+          <button
+            className="btn bg-green-400 text-white hover:text-black"
+            onClick={handleCancel}
+          >
             Cancel
           </button>
         </div>

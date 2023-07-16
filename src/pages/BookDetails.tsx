@@ -38,8 +38,8 @@ export default function BookDetails() {
   const format = formattedDate.toDateString();
 
   return (
-    <div>
-      <div className="card w-96 bg-neutral text-neutral-content">
+    <div className="min-h-screen bg-green-400 flex items-center justify-center">
+      <div className="card w-96 bg-white text-green-400">
         <div className="card-body items-center text-center">
           <p>Title: {book.title}</p>
           <p>Author: {book.author}</p>
@@ -47,14 +47,17 @@ export default function BookDetails() {
           <p>Publication Date: {format}</p>
           <div className="card-actions justify-end">
             {isBookAdder && (
-              <Link to={`/edit-book/${book._id}`} className="btn btn-primary">
+              <Link
+                to={`/edit-book/${book._id}`}
+                className="btn btn-block bg-green-400 text-green-100 hover:text-black font-bold"
+              >
                 Edit
               </Link>
             )}
             {isBookAdder && (
               <button
                 onClick={() => setIsDeleteModalOpen(true)}
-                className="btn btn-primary"
+                className="btn btn-block bg-red-400 text-green-100  hover:text-black font-bold"
               >
                 Delete
               </button>

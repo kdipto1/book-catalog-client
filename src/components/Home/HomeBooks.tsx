@@ -19,10 +19,15 @@ export default function HomeBooks() {
       publicationDate: new Date(item.publicationDate),
     })) || [];
   return (
-    <div className="grid grid-cols-4 gap-3 pt-4 bg-green-400">
-      {books?.map((book: IBook) => (
-        <BookCard key={book._id} book={book} />
-      ))}
+    <div className="py-4 bg-green-400">
+      <p className="text-center font-bold text-4xl pb-4 text-base-200">
+        Recent Books
+      </p>
+      <div className="grid grid-cols-4 gap-3 ">
+        {books?.map((book: IBook) => (
+          <BookCard key={book._id} book={book} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -25,3 +25,10 @@ export interface ApiResponse {
   statusCode: number;
   success: boolean;
 }
+
+export interface IBookFormValues extends Partial<IBook> {
+  title: string;
+  author: string;
+  genre: string;
+  publicationDate: Date;
+}

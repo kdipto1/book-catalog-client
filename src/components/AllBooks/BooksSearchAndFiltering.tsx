@@ -40,10 +40,7 @@ export default function BooksSearchAndFiltering({
           placeholder="Search books"
           className="input input-bordered input-info w-full max-w-xs "
         />
-        <button
-          className="btn btn-primary bg-slate-500 p-4 text-sm"
-          type="submit"
-        >
+        <button className="btn btn-success text-white " type="submit">
           Search
         </button>
       </form>

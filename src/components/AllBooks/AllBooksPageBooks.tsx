@@ -25,7 +25,6 @@ export default function AllBooksPageBooks({
   };
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
   if (isError) return null;
-  console.log(data, "iii");
 
   const books: IBook[] =
     data?.data?.map((item: IBook) => ({
@@ -34,10 +33,15 @@ export default function AllBooksPageBooks({
     })) || [];
 
   return (
-    <div className="grid grid-cols-3 gap-4  pt-4 bg-lime-400">
-      {books?.map((book: IBook) => (
-        <BookCard key={book._id} book={book} />
-      ))}
-    </div>
+    <>
+      <p className="text-center bg-green-400 font-semibold text-4xl">
+        All Books
+      </p>
+      <div className="grid grid-cols-3 gap-4  pt-4 bg-green-400">
+        {books?.map((book: IBook) => (
+          <BookCard key={book._id} book={book} />
+        ))}
+      </div>
+    </>
   );
 }

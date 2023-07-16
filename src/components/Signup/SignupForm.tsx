@@ -3,7 +3,7 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { useUserSignupMutation } from "../../redux/features/user/userApi";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface SignupFormValues {
   name: {
@@ -38,12 +38,13 @@ export default function SignupForm() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="mr-auto my-auto">
+      <h1 className="text-center font-bold text-4xl pb-4">Sign up</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>First Name</label>
           <input
+            placeholder="your first name"
             className="input input-bordered input-info w-full max-w-xs"
             type="text"
             {...register("name.firstName", {
@@ -51,9 +52,10 @@ export default function SignupForm() {
             })}
           />
         </div>
-        <div>
+        <div className="py-2">
           <label>Last Name</label>
           <input
+            placeholder="your last name"
             className="input input-bordered input-info w-full max-w-xs"
             type="text"
             {...register("name.lastName", {
@@ -64,6 +66,7 @@ export default function SignupForm() {
         <div>
           <label>Address</label>
           <input
+            placeholder="your address"
             className="input input-bordered input-info w-full max-w-xs"
             type="text"
             {...register("address", {
@@ -71,9 +74,10 @@ export default function SignupForm() {
             })}
           />
         </div>
-        <div>
+        <div className="py-2">
           <label>Email</label>
           <input
+            placeholder="your email"
             className="input input-bordered input-info w-full max-w-xs"
             type="email"
             {...register("email", { required: "Email is required!" })}
@@ -82,14 +86,17 @@ export default function SignupForm() {
         <div>
           <label>Password</label>
           <input
+            placeholder="your password"
             className="input input-bordered input-info w-full max-w-xs"
             type="password"
             {...register("password", { required: "Password is required" })}
           />
         </div>
-        <button className="btn btn-accent" type="submit" disabled={isLoading}>
-          {isLoading ? "Signing up..." : "Signup"}
-        </button>
+        <div className="text-center pt-4">
+          <button className="btn btn-block" type="submit" disabled={isLoading}>
+            {isLoading ? "Signing up..." : "Signup"}
+          </button>
+        </div>
         {isError && error && (
           <div>
             {(error as CustomError)?.data?.message ||
@@ -97,6 +104,12 @@ export default function SignupForm() {
           </div>
         )}
       </form>
+      <p className="pt-2">
+        Already signed up!{" "}
+        <Link className="font-bold" to="/login">
+          Login
+        </Link>
+      </p>
     </div>
   );
 }
