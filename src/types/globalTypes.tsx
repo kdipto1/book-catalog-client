@@ -1,3 +1,5 @@
+import { SerializedError } from "@reduxjs/toolkit";
+
 export interface IReviews {
   _id?: string;
   reviewer: { _id: string; name: { firstName: string; lastName: string } };
@@ -47,3 +49,9 @@ export type IReviewer = {
     lastName?: string;
   };
 };
+
+export interface CustomError extends SerializedError {
+  data?: {
+    message: string;
+  };
+}

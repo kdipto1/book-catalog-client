@@ -33,7 +33,7 @@ const bookApi = api.injectEndpoints({
     }),
     getSingleBook: builder.query({
       query: (id: string) => ({ url: `/book/${id}` }),
-      providesTags: ["book"],
+      providesTags: ["book", "reviews"],
     }),
     addNewBook: builder.mutation({
       query: (book: IBookFormValues) => ({
@@ -52,12 +52,12 @@ const bookApi = api.injectEndpoints({
       invalidatesTags: ["book"],
     }),
     addBookReview: builder.mutation({
-      query: ({ id, review }: { id: string; review: IReviews }) => ({
+      query: ({ id, review }: { id: string; review: Partial<IReviews> }) => ({
         url: `/book/addReview/${id}`,
         method: "PATCH",
         body: review,
       }),
-      invalidatesTags: ["book"],
+      invalidatesTags: ["book", "reviews"],
     }),
     deleteBook: builder.mutation({
       query: (id: string) => ({

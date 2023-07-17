@@ -63,7 +63,7 @@ export default function EditBookDetail() {
       }).unwrap();
       toast("Book Edited Successfully");
     } catch (error) {
-      console.error("");
+      toast("Book edit error");
     }
   };
 

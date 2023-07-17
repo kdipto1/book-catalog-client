@@ -1,11 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { IBook } from "../types/globalTypes";
 import BookReviews from "../components/BookDetails/BookReviews";
 import BookDetailsCard from "../components/BookDetails/BookDetailsCard";
+import { useEffect } from "react";
 
 export default function BookDetails() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   const { id } = useParams();
 
   const { data, isLoading } = useGetSingleBookQuery(id as string) as {

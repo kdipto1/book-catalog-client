@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IBook } from "../../types/globalTypes";
 import { Link } from "react-router-dom";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 import { useAppSelector } from "../../redux/hook";
+import AddBookReview from "./AddBookReview";
 
 interface IBookDetailsCardProps {
   book: IBook;
@@ -16,13 +17,14 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
   const formattedDate = new Date(book.publicationDate);
   const format = formattedDate.toDateString();
   return (
-    <div>
-      <div className="card w-96 bg-white text-green-400">
-        <div className="card-body items-center text-center">
-          <p>Title: {book.title}</p>
-          <p>Author: {book.author}</p>
-          <p>Genre: {book.genre}</p>
-          <p>Publication Date: {format}</p>
+    <div className="mx-auto mt-6">
+      <p className="font-bold text-4xl pb-4 text-white">Book Details:</p>
+      <div className="card w-96 bg-white text-black font-bold">
+        <div className="card-body items-center text-center ">
+          <p className="mr-auto">Title: {book.title}</p>
+          <p className="mr-auto">Author: {book.author}</p>
+          <p className="mr-auto">Genre: {book.genre}</p>
+          <p className="mr-auto">Publication Date: {format}</p>
           <div className="card-actions justify-end">
             {isBookAdder && (
               <Link
@@ -50,6 +52,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
           </div>
         </div>
       </div>
+      <AddBookReview id={book._id} userId={userId} />
     </div>
   );
 }
