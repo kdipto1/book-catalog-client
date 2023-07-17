@@ -21,8 +21,26 @@ const userApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
+    addBookToWishlist: builder.mutation({
+      query: (bookId: string) => ({
+        url: "/user/wishlist",
+        method: "POST",
+        body: bookId,
+      }),
+    }),
+    getWishlist: builder.query({
+      query: () => ({
+        url: "/user/wishlist",
+        method: "GET",
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useUserLoginMutation, useUserSignupMutation } = userApi;
+export const {
+  useUserLoginMutation,
+  useUserSignupMutation,
+  useAddBookToWishlistMutation,
+  useGetWishlistQuery,
+} = userApi;
