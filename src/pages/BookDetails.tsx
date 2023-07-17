@@ -23,7 +23,12 @@ export default function BookDetails() {
     isLoading: boolean;
   };
 
-  if (isLoading) return <PropagateLoader color="#36d7b7" />;
+  if (isLoading)
+    return (
+      <div className="min-h-screen bg-green-400 flex justify-center items-center content-center">
+        <PropagateLoader color="#ffffff" />
+      </div>
+    );
 
   const book = {
     _id: data?.data?._id,

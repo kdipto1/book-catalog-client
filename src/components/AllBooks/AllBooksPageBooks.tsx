@@ -22,7 +22,12 @@ export default function AllBooksPageBooks({
     isLoading: boolean;
     isError: unknown;
   };
-  if (isLoading) return <PropagateLoader color="#36d7b7" />;
+  if (isLoading)
+    return (
+      <div className="min-h-screen bg-green-400 flex justify-center items-center content-center">
+        <PropagateLoader color="#ffffff" />
+      </div>
+    );
   if (isError) return null;
 
   const books: IBook[] =
@@ -32,7 +37,7 @@ export default function AllBooksPageBooks({
     })) || [];
   return (
     <div className="min-h-screen bg-green-400">
-      <p className="text-center font-semibold text-4xl">
+      <p className="text-center font-semibold text-4xl pt-4">
         {!books.length ? "No book found" : "All Books"}
       </p>
       <div className="grid grid-cols-3 gap-4  pt-4 bg-green-400">

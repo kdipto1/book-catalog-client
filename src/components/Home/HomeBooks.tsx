@@ -10,7 +10,12 @@ export default function HomeBooks() {
     isLoading: boolean;
     isError: any;
   };
-  if (isLoading) return <PropagateLoader color="#36d7b7" />;
+  if (isLoading)
+    return (
+      <div className="min-h-screen bg-green-400 flex justify-center items-center content-center">
+        <PropagateLoader color="#ffffff" />
+      </div>
+    );
   if (isError) return null;
 
   const books: IBook[] =
