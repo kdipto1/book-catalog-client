@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDeleteBookMutation } from "../../redux/features/book/bookApi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 interface DeleteConfirmationModalProps {
   bookId: string;
@@ -29,7 +30,7 @@ export const DeleteConfirmationModal: React.FC<
     } catch (error) {
       setIsDeleting(false);
       setIsError(true);
-      console.error("Delete book error", error);
+      toast("Delete book error");
     }
   };
   const handleCancel = () => {

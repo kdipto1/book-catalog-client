@@ -16,7 +16,6 @@ interface AllBooksPageBooksProps {
 export default function AllBooksPageBooks({
   searchData,
 }: AllBooksPageBooksProps) {
-  console.log(searchData, "All bosks");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { data, isLoading, isError } = useGetBooksQuery(searchData) as {
     data: ApiResponse;
@@ -31,17 +30,16 @@ export default function AllBooksPageBooks({
       ...item,
       publicationDate: new Date(item.publicationDate),
     })) || [];
-
   return (
-    <>
-      <p className="text-center bg-green-400 font-semibold text-4xl">
-        All Books
+    <div className="min-h-screen bg-green-400">
+      <p className="text-center font-semibold text-4xl">
+        {!books.length ? "No book found" : "All Books"}
       </p>
       <div className="grid grid-cols-3 gap-4  pt-4 bg-green-400">
         {books?.map((book: IBook) => (
           <BookCard key={book._id} book={book} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

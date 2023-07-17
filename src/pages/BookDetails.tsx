@@ -13,7 +13,7 @@ export default function BookDetails() {
   const { userId } = useAppSelector((state) => state.userState);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, isLoading } = useGetSingleBookQuery(id) as {
+  const { data, isLoading } = useGetSingleBookQuery(id as string) as {
     data: {
       success: boolean;
       statusCode: number;

@@ -26,6 +26,13 @@ export interface ApiResponse {
   success: boolean;
 }
 
+export interface IBookResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: IBook;
+}
+
 export interface IBookFormValues extends Partial<IBook> {
   title: string;
   author: string;

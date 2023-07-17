@@ -61,7 +61,7 @@ export default function BooksSearchAndFiltering({
           {...register("publicationYear")}
           className="input input-bordered input-info w-full max-w-xs"
           type="number"
-          placeholder="YYYY"
+          placeholder="Year"
           min="0"
           max="2023"
         />

@@ -7,9 +7,9 @@ import {
   useGetSingleBookQuery,
 } from "../redux/features/book/bookApi";
 import { useParams } from "react-router-dom";
-import { IBook } from "../types/globalTypes";
+import { IBook, IBookResponse } from "../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
-import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 interface IBookDetail {
   title: string;
@@ -40,7 +40,6 @@ export default function EditBookDetail() {
   const [editBookDetails, { isLoading: isEditing, isError, error }] =
     useEditBookDetailsMutation();
   const { register, handleSubmit } = useForm<IBookDetail>();
-  const [selectedDate, setSelectedDate] = useState("2022-01-01");
 
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
   const book = {
@@ -51,13 +50,10 @@ export default function EditBookDetail() {
   };
 
   const format = new Date(book?.publicationDate);
-  const formattedDate = format.toLocaleDateString("en-GB");
-  console.log(format);
+  const isoDate = format.toISOString().split("T")[0];
   const onSubmit = async (data: IBookDetail) => {
     try {
       const updatedBook: IBookDetail = {
-        // publicationDate: data.publicationDate,
-        ...book,
         ...data,
       };
 
@@ -65,9 +61,9 @@ export default function EditBookDetail() {
         id,
         book: updatedBook,
       }).unwrap();
-      console.log("Edit book successful", response);
+      toast("Book Edited Successfully");
     } catch (error) {
-      console.error("Edit book error");
+      console.error("");
     }
   };
 
@@ -84,7 +80,7 @@ export default function EditBookDetail() {
             {...register("title")}
           />
         </div>
-        <div>
+        <div className="py-3">
           <label>Author: {book?.author}</label>
           <input
             defaultValue={book?.author}
@@ -102,10 +98,10 @@ export default function EditBookDetail() {
             {...register("genre")}
           />
         </div>
-        <div>
-          <label>Publication Date: {formattedDate}</label>
+        <div className="py-3">
+          <label>Publication Date: {isoDate}</label>
           <input
-            value={selectedDate}
+            defaultValue={isoDate}
             className="input input-bordered input-info w-full max-w-xs"
             type="date"
             {...register("publicationDate")}

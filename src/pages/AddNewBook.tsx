@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "react-hook-form";
 import { useAddNewBookMutation } from "../redux/features/book/bookApi";
-import { IBook } from "../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
-interface IBookFormValues extends Partial<IBook> {
+interface IBookFormValues {
   title: string;
   author: string;
   genre: string;
@@ -23,6 +23,7 @@ export default function AddNewBook() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IBookFormValues>();
 
   const [addBook, { isLoading, isError, error }] = useAddNewBookMutation();
@@ -30,18 +31,19 @@ export default function AddNewBook() {
   const onSubmit = async (data: IBookFormValues) => {
     try {
       const response = await addBook(data).unwrap();
-      console.log("Book added successfully", response);
+      reset();
+      toast("Book added successfully");
     } catch (error) {
-      console.error("Add book error", error);
+      toast("Add book error");
     }
   };
 
   return (
-    <div className="mx-auto text-white font-semibold text-center h-screen bg-green-400">
-      <h1 className="text-center">Add New Book</h1>
+    <div className="mx-auto font-semibold text-center h-screen bg-green-400">
+      <h1 className="text-center mr-8 text-4xl py-4">Add New Book</h1>
       <div className="mx-auto my-auto card w-96">
         <form
-          className="flex justify-start content-start card w-auto mr-auto"
+          className="text-center card w-auto mr-auto"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>
@@ -53,7 +55,7 @@ export default function AddNewBook() {
             />
             {errors.title && <div>{errors.title.message}</div>}
           </div>
-          <div>
+          <div className="py-3">
             <label>Author:</label>
             <input
               className="input input-bordered input-info w-full max-w-xs"
@@ -71,7 +73,7 @@ export default function AddNewBook() {
             />
             {errors.genre && <div>{errors.genre.message}</div>}
           </div>
-          <div>
+          <div className="py-3">
             <label>Publication Date:</label>
             <input
               className="input input-bordered input-info w-full max-w-xs text-black"

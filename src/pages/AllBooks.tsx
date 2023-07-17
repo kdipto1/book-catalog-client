@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AllBooksPageBooks from "../components/AllBooks/AllBooksPageBooks";
 import BooksSearchAndFiltering from "../components/AllBooks/BooksSearchAndFiltering";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface SearchFormData {
   searchTerm: string;
@@ -10,13 +10,16 @@ interface SearchFormData {
 }
 
 export default function AllBooks() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   const [searchData, setSearchData] = useState<SearchFormData>({
     searchTerm: "",
     genre: "",
     publicationYear: "",
   });
 
-  console.log(searchData);
   const handleSearch = (data: SearchFormData) => {
     if (data) setSearchData(data);
   };
@@ -32,10 +35,7 @@ export default function AllBooks() {
           </div>
         </div>
         <div className="col-start-2 col-end-6">
-          <AllBooksPageBooks
-            // setSearchData={setSearchData}
-            searchData={searchData}
-          />
+          <AllBooksPageBooks searchData={searchData} />
         </div>
       </div>
     </div>
