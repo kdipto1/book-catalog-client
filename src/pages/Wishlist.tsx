@@ -1,9 +1,12 @@
+import { PropagateLoader } from "react-spinners";
 import { useGetWishlistQuery } from "../redux/features/user/userApi";
 import { IUserWishlist } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 
 export default function Wishlist() {
-  const { data, isLoading } = useGetWishlistQuery(undefined) as {
+  const { data, isLoading } = useGetWishlistQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  }) as {
     data: {
       success: string;
       statusCode: number;
@@ -12,43 +15,57 @@ export default function Wishlist() {
     };
     isLoading: boolean;
   };
-  if (isLoading) return;
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  const { wishlist } = data?.data;
-  const date = wishlist?.map((book) => new Date(book.bookId.publicationDate));
-  const format = date.toLocaleString();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <PropagateLoader color="#ADFF2F" />
+      </div>
+    );
+  }
+
+  if (
+    !data ||
+    !data.data ||
+    !data.data.wishlist ||
+    data.data.wishlist.length === 0
+  ) {
+    return (
+      <div className="min-h-screen text-center mt-4">
+        No books in the wishlist
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen mt-4">
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Book Title</th>
               <th>Author</th>
               <th>Genre</th>
-              <th>Publication Date</th>
               <th>Details</th>
             </tr>
           </thead>
-          {wishlist?.map((book) => (
-            <tbody key={book._id}>
-              <tr>
-                <td>{book.bookId.title}</td>
-                <td>{book.bookId.author}</td>
-                <td>{book.bookId.genre}</td>
-                <td>{format}</td>
+          <tbody>
+            {data.data.wishlist.map((book) => (
+              <tr className="text-center" key={book?._id}>
+                <td>{book?.bookId?.title}</td>
+                <td>{book?.bookId?.author}</td>
+                <td>{book?.bookId?.genre}</td>
                 <th>
                   <Link
-                    to={`/book-detail/${book.bookId._id}`}
+                    to={`/book-detail/${book?.bookId?._id}`}
                     className="btn btn-ghost btn-xs"
                   >
-                    details
+                    Details
                   </Link>
                 </th>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

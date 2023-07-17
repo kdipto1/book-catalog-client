@@ -22,17 +22,19 @@ const userApi = api.injectEndpoints({
       }),
     }),
     addBookToWishlist: builder.mutation({
-      query: (bookId: string) => ({
+      query: ({ ...bookId }: { bookId: string }) => ({
         url: "/user/wishlist",
-        method: "POST",
+        method: "PATCH",
         body: bookId,
       }),
+      invalidatesTags: ["wishlist"],
     }),
     getWishlist: builder.query({
       query: () => ({
         url: "/user/wishlist",
         method: "GET",
       }),
+      providesTags: ["wishlist"],
     }),
   }),
   overrideExisting: false,

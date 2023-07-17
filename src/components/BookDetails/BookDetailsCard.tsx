@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react";
 import { IBook } from "../../types/globalTypes";
 import { Link } from "react-router-dom";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 import { useAppSelector } from "../../redux/hook";
 import AddBookReview from "./AddBookReview";
+import { useAddBookToWishlistMutation } from "../../redux/features/user/userApi";
+import { toast } from "react-hot-toast";
 
 interface IBookDetailsCardProps {
   book: IBook;
@@ -12,10 +15,28 @@ interface IBookDetailsCardProps {
 export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
   const { userId } = useAppSelector((state) => state.userState);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const isBookAdder = book.addedBy === userId;
+  const isBookAdder = book?.addedBy === userId;
 
   const formattedDate = new Date(book.publicationDate);
   const format = formattedDate.toDateString();
+
+  const [wishlist, { isLoading, isError }] = useAddBookToWishlistMutation();
+
+  const handleWishlist = async () => {
+    try {
+      if (!userId) {
+        toast("Please login to continue!");
+        return;
+      }
+
+      const bookId = { bookId: book?._id };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response = await wishlist(bookId).unwrap();
+      toast("Book added to wishlist");
+    } catch (error) {
+      toast("Wishlist error");
+    }
+  };
   return (
     <div className="mx-auto mt-6">
       <p className="font-bold text-4xl pb-4 text-white">Book Details:</p>
@@ -52,6 +73,13 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
           </div>
         </div>
       </div>
+      <button
+        onClick={handleWishlist}
+        disabled={isLoading}
+        className="btn bg-blue-400 mt-4"
+      >
+        {isLoading ? "Adding Book..." : "Add to wishlist"}
+      </button>
       <AddBookReview id={book._id} userId={userId} />
     </div>
   );
