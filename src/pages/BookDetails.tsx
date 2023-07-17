@@ -1,18 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { IBook } from "../types/globalTypes";
-import { useAppSelector } from "../redux/hook";
-import { useState } from "react";
-import { DeleteConfirmationModal } from "../components/BookDetails/DeleteConfirmationModal";
 import BookReviews from "../components/BookDetails/BookReviews";
+import BookDetailsCard from "../components/BookDetails/BookDetailsCard";
 
 export default function BookDetails() {
   const { id } = useParams();
-  const { userId } = useAppSelector((state) => state.userState);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   const { data, isLoading } = useGetSingleBookQuery(id as string) as {
     data: {
       success: boolean;
@@ -22,63 +17,28 @@ export default function BookDetails() {
     };
     isLoading: boolean;
   };
-
   if (isLoading)
     return (
       <div className="min-h-screen bg-green-400 flex justify-center items-center content-center">
         <PropagateLoader color="#ffffff" />
       </div>
     );
+  const { _id, title, author, genre, publicationDate, addedBy, reviews } =
+    data.data;
 
   const book = {
-    _id: data?.data?._id,
-    title: data?.data.title,
-    author: data.data.author,
-    genre: data.data.genre,
-    publicationData: data.data.publicationDate,
-    addedBy: data.data.addedBy,
+    _id,
+    title,
+    author,
+    genre,
+    publicationDate,
+    addedBy,
   };
 
-  const isBookAdder = book.addedBy === userId ? true : false;
-  const formattedDate = new Date(book?.publicationData);
-  const format = formattedDate.toDateString();
-
   return (
-    <div className="min-h-screen bg-green-400 flex items-center justify-center">
-      <div className="card w-96 bg-white text-green-400">
-        <div className="card-body items-center text-center">
-          <p>Title: {book.title}</p>
-          <p>Author: {book.author}</p>
-          <p>Genre: {book.genre}</p>
-          <p>Publication Date: {format}</p>
-          <div className="card-actions justify-end">
-            {isBookAdder && (
-              <Link
-                to={`/edit-book/${book._id}`}
-                className="btn btn-block bg-green-400 text-green-100 hover:text-black font-bold"
-              >
-                Edit
-              </Link>
-            )}
-            {isBookAdder && (
-              <button
-                onClick={() => setIsDeleteModalOpen(true)}
-                className="btn btn-block bg-red-400 text-green-100  hover:text-black font-bold"
-              >
-                Delete
-              </button>
-            )}
-            {isDeleteModalOpen && (
-              <DeleteConfirmationModal
-                bookId={book._id}
-                onDelete={() => setIsDeleteModalOpen(false)}
-                onCancel={() => setIsDeleteModalOpen(false)}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      <BookReviews reviews={data.data.reviews} />
+    <div className="min-h-screen bg-green-400 grid grid-cols-2">
+      <BookDetailsCard book={book} />
+      <BookReviews reviews={reviews} />
     </div>
   );
 }

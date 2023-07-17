@@ -1,6 +1,6 @@
 export interface IReviews {
   _id?: string;
-  reviewer: { _id: string; name: { firstName: string } };
+  reviewer: { _id: string; name: { firstName: string; lastName: string } };
   rating: number;
   comment: string;
 }
