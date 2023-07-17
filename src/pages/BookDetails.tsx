@@ -3,10 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import { PropagateLoader } from "react-spinners";
 import { IBook } from "../types/globalTypes";
-
 import { useAppSelector } from "../redux/hook";
 import { useState } from "react";
 import { DeleteConfirmationModal } from "../components/BookDetails/DeleteConfirmationModal";
+import BookReviews from "../components/BookDetails/BookReviews";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -24,6 +24,7 @@ export default function BookDetails() {
   };
 
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
+
   const book = {
     _id: data?.data?._id,
     title: data?.data.title,
@@ -72,6 +73,7 @@ export default function BookDetails() {
           </div>
         </div>
       </div>
+      <BookReviews reviews={data.data.reviews} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
-interface IReviews {
-  reviewer: string;
+export interface IReviews {
+  _id?: string;
+  reviewer: { _id: string; name: { firstName: string } };
   rating: number;
   comment: string;
 }
@@ -39,3 +40,10 @@ export interface IBookFormValues extends Partial<IBook> {
   genre: string;
   publicationDate: Date;
 }
+
+export type IReviewer = {
+  name?: {
+    firstName?: string;
+    lastName?: string;
+  };
+};

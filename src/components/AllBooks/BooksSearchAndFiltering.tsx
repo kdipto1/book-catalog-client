@@ -14,11 +14,7 @@ interface BookSearchFormProps {
 export default function BooksSearchAndFiltering({
   onSearch,
 }: BookSearchFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SearchFormData>();
+  const { register, handleSubmit } = useForm<SearchFormData>();
 
   const onSubmit: SubmitHandler<SearchFormData> = (data) => {
     onSearch(data);

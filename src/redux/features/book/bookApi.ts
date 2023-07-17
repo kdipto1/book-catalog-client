@@ -1,4 +1,4 @@
-import { IBook, IBookFormValues } from "../../../types/globalTypes";
+import { IBook, IBookFormValues, IReviews } from "../../../types/globalTypes";
 import { api } from "../../api/apiSlice";
 
 interface SearchFormData {
@@ -51,6 +51,14 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["book"],
     }),
+    addBookReview: builder.mutation({
+      query: ({ id, review }: { id: string; review: IReviews }) => ({
+        url: `/book/addReview/${id}`,
+        method: "PATCH",
+        body: review,
+      }),
+      invalidatesTags: ["book"],
+    }),
     deleteBook: builder.mutation({
       query: (id: string) => ({
         url: `/book/${id}`,
@@ -69,4 +77,5 @@ export const {
   useAddNewBookMutation,
   useEditBookDetailsMutation,
   useDeleteBookMutation,
+  useAddBookReviewMutation,
 } = bookApi;

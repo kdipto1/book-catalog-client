@@ -20,7 +20,7 @@ export default function AllBooksPageBooks({
   const { data, isLoading, isError } = useGetBooksQuery(searchData) as {
     data: ApiResponse;
     isLoading: boolean;
-    isError: any;
+    isError: unknown;
   };
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
   if (isError) return null;
