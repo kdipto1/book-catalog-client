@@ -55,3 +55,15 @@ export interface CustomError extends SerializedError {
     message: string;
   };
 }
+
+export interface IWishlistBook {
+  bookId: IBook;
+  _id: string;
+  id: string;
+}
+
+export interface IUserWishlist {
+  _id: string;
+  wishlist: IWishlistBook[];
+  id: string;
+}
