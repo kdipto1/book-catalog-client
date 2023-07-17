@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "react-hook-form";
 import { PropagateLoader } from "react-spinners";
 import {
@@ -9,12 +9,13 @@ import {
 import { useParams } from "react-router-dom";
 import { IBook } from "../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
+import { useState } from "react";
 
 interface IBookDetail {
   title: string;
   author: string;
   genre: string;
-  publicationData: Date;
+  publicationDate: Date;
 }
 
 interface CustomError extends SerializedError {
@@ -38,39 +39,35 @@ export default function EditBookDetail() {
   };
   const [editBookDetails, { isLoading: isEditing, isError, error }] =
     useEditBookDetailsMutation();
-
   const { register, handleSubmit } = useForm<IBookDetail>();
+  const [selectedDate, setSelectedDate] = useState("2022-01-01");
 
   if (isLoading) return <PropagateLoader color="#36d7b7" />;
-
   const book = {
-    _id: data?.data?._id,
     title: data?.data.title,
     author: data?.data.author,
     genre: data?.data.genre,
-    publicationData: data?.data.publicationDate,
-    addedBy: data?.data.addedBy,
+    publicationDate: data?.data.publicationDate,
   };
 
-  const formattedDate = new Date(book?.publicationData);
-  const format = formattedDate.toLocaleDateString("en-GB"); // Convert to DD-MM-YYYY format
+  const format = new Date(book?.publicationDate);
+  const formattedDate = format.toLocaleDateString("en-GB");
   console.log(format);
   const onSubmit = async (data: IBookDetail) => {
     try {
-      const updatedBook: IBook = {
-        publicationDate: data.publicationData,
+      const updatedBook: IBookDetail = {
+        // publicationDate: data.publicationDate,
         ...book,
         ...data,
       };
 
-      // Pass the 'id' and 'book' properties in the mutation call
       const response = await editBookDetails({
         id,
         book: updatedBook,
       }).unwrap();
       console.log("Edit book successful", response);
     } catch (error) {
-      console.error("Edit book error", error);
+      console.error("Edit book error");
     }
   };
 
@@ -106,12 +103,12 @@ export default function EditBookDetail() {
           />
         </div>
         <div>
-          <label>Publication Date: {format}</label>
+          <label>Publication Date: {formattedDate}</label>
           <input
-            defaultValue={format} // Set the formatted date as the default value
+            value={selectedDate}
             className="input input-bordered input-info w-full max-w-xs"
             type="date"
-            {...register("publicationData")}
+            {...register("publicationDate")}
           />
         </div>
 

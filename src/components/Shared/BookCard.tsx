@@ -6,7 +6,7 @@ interface BookCardProps {
 }
 
 export default function BookCard({ book }: BookCardProps) {
-  const formattedDate = book?.publicationDate.toLocaleDateString();
+  const formattedDate = book?.publicationDate.toLocaleDateString("en-GB");
   return (
     <div className="card card-compact w-72 bg-base-100 shadow-xl mx-auto">
       <figure>

@@ -32,8 +32,7 @@ const bookApi = api.injectEndpoints({
       providesTags: ["book"],
     }),
     getSingleBook: builder.query({
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      query: (id) => ({ url: `/book/${id}` }),
+      query: (id: string) => ({ url: `/book/${id}` }),
       providesTags: ["book"],
     }),
     addNewBook: builder.mutation({
@@ -45,7 +44,7 @@ const bookApi = api.injectEndpoints({
       invalidatesTags: ["book"],
     }),
     editBookDetails: builder.mutation({
-      query: ({ id, ...book }: { id: string; book: Partial<IBook> }) => ({
+      query: ({ id, book }: { id: string; book: Partial<IBook> }) => ({
         url: `/book/${id}`,
         method: "PATCH",
         body: book,

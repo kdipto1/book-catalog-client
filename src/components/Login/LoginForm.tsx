@@ -59,7 +59,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mr-auto my-auto">
+    <div className="mr-auto mt-20">
       <h1 className="text-center font-bold text-4xl pb-4">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="pb-2">

@@ -38,7 +38,7 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="mr-auto my-auto">
+    <div className="mr-auto mt-20">
       <h1 className="text-center font-bold text-4xl pb-4">Sign up</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
