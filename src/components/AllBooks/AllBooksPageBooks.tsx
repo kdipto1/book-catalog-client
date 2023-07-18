@@ -40,7 +40,7 @@ export default function AllBooksPageBooks({
       <p className="text-center font-semibold text-4xl pt-4">
         {!books.length ? "No book found" : "All Books"}
       </p>
-      <div className="grid grid-cols-3 gap-4  pt-4 bg-green-400">
+      <div className="grid grid-cols-3 gap-4  py-6 bg-green-400">
         {books?.map((book: IBook) => (
           <BookCard key={book._id} book={book} />
         ))}

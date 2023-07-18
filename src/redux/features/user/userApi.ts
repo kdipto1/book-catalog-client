@@ -29,9 +29,25 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["wishlist"],
     }),
+
     getWishlist: builder.query({
       query: () => ({
         url: "/user/wishlist",
+        method: "GET",
+      }),
+      providesTags: ["wishlist"],
+    }),
+    addBookToReadingList: builder.mutation({
+      query: ({ ...book }: { bookId: string; readingState: boolean }) => ({
+        url: "/user/readingList",
+        method: "PATCH",
+        body: book,
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
+    getReadingList: builder.query({
+      query: () => ({
+        url: "/user/readingList",
         method: "GET",
       }),
       providesTags: ["wishlist"],
@@ -45,4 +61,6 @@ export const {
   useUserSignupMutation,
   useAddBookToWishlistMutation,
   useGetWishlistQuery,
+  useAddBookToReadingListMutation,
+  useGetReadingListQuery,
 } = userApi;

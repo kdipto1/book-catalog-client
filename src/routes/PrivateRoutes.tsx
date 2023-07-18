@@ -11,10 +11,8 @@ export default function PrivateRoutes({ children }: IProps) {
   const { accessToken } = useAppSelector((state) => state.userState);
   const { pathname } = useLocation();
   if (!accessToken) {
-    return (
-      toast("Please login, to continue"),
-      (<Navigate to="/login" state={{ path: pathname }} />)
-    );
+    toast("Please login, to continue");
+    return <Navigate to="/login" state={{ path: pathname }} />;
   }
 
   return <>{children}</>;

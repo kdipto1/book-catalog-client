@@ -40,12 +40,12 @@ export default function AddBookReview({ id, userId }: IAddBookReviewProps) {
     }
   };
   return (
-    <div className="mr-auto mt-20">
+    <div className="mr-auto my-10">
       <h1 className="text-center text-white font-bold text-4xl pb-4">
         Give review
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="pb-2 mr-auto">
+        <div className="pb-2 mr-auto flex flex-col">
           <label>Comment</label>
           <textarea
             className="textarea textarea-info w-full max-w-xs"

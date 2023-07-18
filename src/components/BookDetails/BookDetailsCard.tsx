@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 import { useAppSelector } from "../../redux/hook";
 import AddBookReview from "./AddBookReview";
-import { useAddBookToWishlistMutation } from "../../redux/features/user/userApi";
+import {
+  useAddBookToReadingListMutation,
+  useAddBookToWishlistMutation,
+} from "../../redux/features/user/userApi";
 import { toast } from "react-hot-toast";
 
 interface IBookDetailsCardProps {
@@ -22,6 +25,11 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
 
   const [wishlist, { isLoading, isError }] = useAddBookToWishlistMutation();
 
+  const [readingList, { isLoading: readingListLoading }] =
+    useAddBookToReadingListMutation();
+  /**
+   * !wish List
+   */
   const handleWishlist = async () => {
     try {
       if (!userId) {
@@ -35,6 +43,25 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
       toast("Book added to wishlist");
     } catch (error) {
       toast("Wishlist error");
+    }
+  };
+
+  /**
+   * ! Reading List
+   */
+  const handleReadingList = async () => {
+    try {
+      if (!userId) {
+        toast("Please login to continue!");
+        return;
+      }
+
+      const bookR = { bookId: book?._id, readingState: false };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const response = await readingList(bookR).unwrap();
+      toast("Book added to reading list");
+    } catch (error) {
+      toast("Reading list error");
     }
   };
   return (
@@ -79,6 +106,13 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
         className="btn bg-blue-400 mt-4"
       >
         {isLoading ? "Adding Book..." : "Add to wishlist"}
+      </button>
+      <button
+        onClick={handleReadingList}
+        disabled={readingListLoading}
+        className="btn bg-blue-400 m-4"
+      >
+        {readingListLoading ? "Adding Book..." : "Add to Reading List"}
       </button>
       <AddBookReview id={book._id} userId={userId} />
     </div>
