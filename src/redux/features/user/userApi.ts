@@ -49,28 +49,28 @@ const userApi = api.injectEndpoints({
         method: "PATCH",
         body: book,
       }),
-      invalidatesTags: ["wishlist"],
+      invalidatesTags: ["readingList"],
     }),
     getReadingList: builder.query({
       query: () => ({
         url: "/user/readingList",
         method: "GET",
       }),
-      providesTags: ["wishlist"],
+      providesTags: ["readingList"],
     }),
     bookReadingReadStateChange: builder.mutation({
       query: (id: string) => ({
         url: `/user/readingState/${id}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["wishlist"],
+      invalidatesTags: ["readingList"],
     }),
     bookReadingFinishStateChange: builder.mutation({
       query: (id: string) => ({
         url: `/user/finishState/${id}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["wishlist"],
+      invalidatesTags: ["readingList"],
     }),
   }),
   overrideExisting: false,

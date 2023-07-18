@@ -7,7 +7,7 @@ import {
   useGetSingleBookQuery,
 } from "../redux/features/book/bookApi";
 import { useParams } from "react-router-dom";
-import { IBook, IBookResponse } from "../types/globalTypes";
+import { IBook } from "../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from "react";
 import {
   useBookReadingFinishStateChangeMutation,
   useBookReadingReadStateChangeMutation,
@@ -58,7 +57,7 @@ export default function ReadingList() {
   const handleBookFinishState = async (id: string) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await finishState(id).unwrap();
+      const response = await finishState(id);
       toast("You have finished reading this book");
     } catch (error) {
       toast("Error");
@@ -85,7 +84,7 @@ export default function ReadingList() {
                 <td>{book?.bookId?.author}</td>
                 <td>{book?.bookId?.genre}</td>
                 <td>
-                  {!book?.readingState && (
+                  {!book?.readingState && !book?.finishState && (
                     <button
                       onClick={() => handleBookReadState(book?.bookId?._id)}
                       className="btn btn-xs"
@@ -95,6 +94,7 @@ export default function ReadingList() {
                   )}
                   {book.readingState && !book.finishState && "Started reading"}
                   {book.readingState && book.finishState && "Finished reading"}
+                  {!book.readingState && book.finishState && "Finished reading"}
                 </td>
                 <td>
                   {!book?.finishState ? (

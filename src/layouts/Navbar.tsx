@@ -83,9 +83,17 @@ export default function Navbar() {
               </>
             )}
             {userId && (
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
+              <>
+                <li>
+                  <Link to="/addNewBook">Add New Book</Link>
+                </li>
+                <li>
+                  <Link to="/allBooks">All Books</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </>
             )}
           </ul>
         </div>

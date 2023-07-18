@@ -12,7 +12,7 @@ export default function BookCard({ book }: BookCardProps) {
       <figure>
         <img src="" alt="" />
       </figure>
-      <div className="card-body ">
+      <div className="card-body font-medium">
         <h2 className="card-title">{book?.title}</h2>
         <p>Author: {book?.author}</p>
         <p>Genre: {book?.genre}</p>
