@@ -13,7 +13,10 @@ export default function BookDetails() {
   }, [location]);
   const { id } = useParams();
 
-  const { data, isLoading } = useGetSingleBookQuery(id as string) as {
+  const { data, isLoading } = useGetSingleBookQuery(id as string, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  }) as {
     data: {
       success: boolean;
       statusCode: number;

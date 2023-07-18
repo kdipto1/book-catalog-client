@@ -5,7 +5,10 @@ import BookCard from "../Shared/BookCard";
 
 export default function HomeBooks() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, isLoading, isError } = useGetHomeBooksQuery(undefined) as {
+  const { data, isLoading, isError } = useGetHomeBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  }) as {
     data: ApiResponse;
     isLoading: boolean;
     isError: any;

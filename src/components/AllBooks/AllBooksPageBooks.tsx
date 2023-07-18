@@ -20,11 +20,17 @@ export default function AllBooksPageBooks({
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, isLoading, isError } = useGetBooksQuery({
-    page: currentPage.toString(),
-    limit: pageSize.toString(),
-    ...searchData,
-  }) as {
+  const { data, isLoading, isError } = useGetBooksQuery(
+    {
+      page: currentPage.toString(),
+      limit: pageSize.toString(),
+      ...searchData,
+    },
+    {
+      refetchOnMountOrArgChange: true,
+      pollingInterval: 30000,
+    }
+  ) as {
     data: ApiResponse;
     isLoading: boolean;
     isError: unknown;
