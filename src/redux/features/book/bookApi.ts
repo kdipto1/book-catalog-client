@@ -2,6 +2,8 @@ import { IBook, IBookFormValues, IReviews } from "../../../types/globalTypes";
 import { api } from "../../api/apiSlice";
 
 interface SearchFormData {
+  page?: string;
+  limit?: string;
   searchTerm: string;
   genre: string;
   publicationYear: string;
@@ -18,6 +20,8 @@ const bookApi = api.injectEndpoints({
         if (arg.publicationYear)
           queryParams.append("publicationYear", arg.publicationYear);
         if (arg.sortBy) queryParams.append("sortBy", arg.sortBy);
+        if (arg.page) queryParams.append("page", arg.page);
+        if (arg.limit) queryParams.append("limit", arg.limit);
 
         return {
           url: `/book${
