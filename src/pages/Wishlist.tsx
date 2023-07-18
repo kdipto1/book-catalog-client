@@ -41,6 +41,7 @@ export default function Wishlist() {
     <div className="min-h-screen mt-4">
       <div className="overflow-x-auto">
         <table className="table">
+          <caption className="font-bold text-4xl">Wishlist</caption>
           <thead>
             <tr className="text-center">
               <th>Book Title</th>
