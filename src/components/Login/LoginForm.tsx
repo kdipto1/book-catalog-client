@@ -6,9 +6,10 @@
 import { useForm } from "react-hook-form";
 import { useUserLoginMutation } from "../../redux/features/user/userApi";
 import { SerializedError } from "@reduxjs/toolkit";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useAppDispatch } from "../../redux/hook";
 import { loginUser } from "../../redux/features/user/userSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 interface LoginFormValues {
   email: string;
@@ -52,9 +53,9 @@ export default function LoginForm() {
 
       dispatch(loginUser(userState));
       navigate(from, { replace: true });
-      console.log("Login successful", response);
+      toast("Login successful");
     } catch (error) {
-      console.error("Login error", error);
+      toast("Login error");
     }
   };
 

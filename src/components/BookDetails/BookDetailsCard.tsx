@@ -23,7 +23,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
   const formattedDate = new Date(book.publicationDate);
   const format = formattedDate.toDateString();
 
-  const [wishlist, { isLoading, isError }] = useAddBookToWishlistMutation();
+  const [wishlist, { isLoading }] = useAddBookToWishlistMutation();
 
   const [readingList, { isLoading: readingListLoading }] =
     useAddBookToReadingListMutation();
@@ -39,7 +39,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
 
       const bookId = { bookId: book?._id };
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await wishlist(bookId).unwrap();
+      await wishlist(bookId).unwrap();
       toast("Book added to wishlist");
     } catch (error) {
       toast("Error wishlist! Book already in wishlist");
@@ -62,7 +62,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
         finishState: false,
       };
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await readingList(bookR).unwrap();
+      await readingList(bookR).unwrap();
       toast("Book added to reading list");
     } catch (error) {
       toast("Reading list error!, Book already in reading list");

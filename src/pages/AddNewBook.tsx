@@ -30,7 +30,7 @@ export default function AddNewBook() {
 
   const onSubmit = async (data: IBookFormValues) => {
     try {
-      const response = await addBook(data).unwrap();
+      await addBook(data).unwrap();
       reset();
       toast("Book added successfully");
     } catch (error) {

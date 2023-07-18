@@ -57,7 +57,7 @@ export default function EditBookDetail() {
         ...data,
       };
 
-      const response = await editBookDetails({
+      await editBookDetails({
         id,
         book: updatedBook,
       }).unwrap();

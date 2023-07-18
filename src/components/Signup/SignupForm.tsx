@@ -2,7 +2,6 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { useUserSignupMutation } from "../../redux/features/user/userApi";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 interface SignupFormValues {
@@ -29,7 +28,7 @@ export default function SignupForm() {
   const onSubmit = async (data: SignupFormValues) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await login(data).unwrap();
+      await login(data).unwrap();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       navigate("/login");
     } catch (error) {

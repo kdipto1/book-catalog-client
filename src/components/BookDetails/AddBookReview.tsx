@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from "react";
 import { CustomError } from "../../types/globalTypes";
 import { SerializedError } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
@@ -31,7 +30,7 @@ export default function AddBookReview({ id, userId }: IAddBookReviewProps) {
         ...data,
       };
 
-      const response = await review({ id, review: reviewData }).unwrap();
+      await review({ id, review: reviewData }).unwrap();
 
       toast("Review added");
       reset();

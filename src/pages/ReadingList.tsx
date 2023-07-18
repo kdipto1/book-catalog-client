@@ -48,7 +48,7 @@ export default function ReadingList() {
   const handleBookReadState = async (id: string) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await readState(id).unwrap();
+      await readState(id).unwrap();
       toast("You have started reading this book");
     } catch (error) {
       toast("Error");
@@ -57,7 +57,7 @@ export default function ReadingList() {
   const handleBookFinishState = async (id: string) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const response = await finishState(id);
+      await finishState(id);
       toast("You have finished reading this book");
     } catch (error) {
       toast("Error");
