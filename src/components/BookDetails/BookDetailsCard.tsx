@@ -42,7 +42,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
       const response = await wishlist(bookId).unwrap();
       toast("Book added to wishlist");
     } catch (error) {
-      toast("Wishlist error");
+      toast("Error wishlist! Book already in wishlist");
     }
   };
 
@@ -65,7 +65,7 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
       const response = await readingList(bookR).unwrap();
       toast("Book added to reading list");
     } catch (error) {
-      toast("Reading list error");
+      toast("Reading list error!, Book already in reading list");
     }
   };
   return (
