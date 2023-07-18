@@ -56,7 +56,11 @@ export default function BookDetailsCard({ book }: IBookDetailsCardProps) {
         return;
       }
 
-      const bookR = { bookId: book?._id, readingState: false };
+      const bookR = {
+        bookId: book?._id,
+        readingState: false,
+        finishState: false,
+      };
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const response = await readingList(bookR).unwrap();
       toast("Book added to reading list");

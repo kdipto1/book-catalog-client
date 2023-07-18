@@ -38,7 +38,13 @@ const userApi = api.injectEndpoints({
       providesTags: ["wishlist"],
     }),
     addBookToReadingList: builder.mutation({
-      query: ({ ...book }: { bookId: string; readingState: boolean }) => ({
+      query: ({
+        ...book
+      }: {
+        bookId: string;
+        readingState: boolean;
+        finishState: boolean;
+      }) => ({
         url: "/user/readingList",
         method: "PATCH",
         body: book,
@@ -52,6 +58,20 @@ const userApi = api.injectEndpoints({
       }),
       providesTags: ["wishlist"],
     }),
+    bookReadingReadStateChange: builder.mutation({
+      query: (id: string) => ({
+        url: `/user/readingState/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
+    bookReadingFinishStateChange: builder.mutation({
+      query: (id: string) => ({
+        url: `/user/finishState/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["wishlist"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -63,4 +83,6 @@ export const {
   useGetWishlistQuery,
   useAddBookToReadingListMutation,
   useGetReadingListQuery,
+  useBookReadingReadStateChangeMutation,
+  useBookReadingFinishStateChangeMutation,
 } = userApi;

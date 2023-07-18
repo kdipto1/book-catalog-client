@@ -67,3 +67,16 @@ export interface IUserWishlist {
   wishlist: IWishlistBook[];
   id: string;
 }
+export interface IReadingListBook {
+  bookId: IBook;
+  readingState: boolean;
+  finishState: boolean;
+  _id: string;
+  id: string;
+}
+
+export interface IUserReadingList {
+  _id: string;
+  readingList: IReadingListBook[];
+  id: string;
+}
