@@ -50,7 +50,7 @@ export default function Navbar() {
             >
               <img
                 className="w-6"
-                src="/src/assets/icons8-add-book-100.png"
+                src="/assets/icons8-add-book-100.png"
                 alt=""
               />
             </Link>
@@ -59,7 +59,7 @@ export default function Navbar() {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="/src/assets/icons8-person-60.png" />
+              <img src="/assets/icons8-person-60.png" />
             </div>
           </label>
           <ul

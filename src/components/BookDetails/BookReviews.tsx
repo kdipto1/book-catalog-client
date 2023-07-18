@@ -17,7 +17,7 @@ export default function BookReviews({ reviews }: IBookReviewsProps) {
             <div className=" flex items-start justify-start">
               <img
                 className="w-6 mr-auto"
-                src="/src/assets/icons8-person-60.png"
+                src="/assets/icons8-person-60.png"
                 alt=""
               />{" "}
               <p className="mr-auto">
@@ -27,7 +27,7 @@ export default function BookReviews({ reviews }: IBookReviewsProps) {
             <div className="flex justify-center items-center">
               <img
                 className="w-6 mr-auto"
-                src="/src/assets/icons8-comment-96.png"
+                src="/assets/icons8-comment-96.png"
                 alt=""
               />
               <p
@@ -40,7 +40,7 @@ export default function BookReviews({ reviews }: IBookReviewsProps) {
             <div className="flex justify-center items-center">
               <img
                 className="w-6 mr-auto"
-                src="/src/assets/icons8-rating-100.png"
+                src="/assets/icons8-rating-100.png"
                 alt=""
               />
               <p className="mr-auto">{review.rating}/5</p>
