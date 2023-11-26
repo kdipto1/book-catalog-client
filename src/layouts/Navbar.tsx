@@ -13,7 +13,7 @@ export default function Navbar() {
     <div className="navbar bg-blue-400">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-white text-xl" to="/">
-          book
+          ZestRead
         </Link>
       </div>
       <div className="flex-none">
