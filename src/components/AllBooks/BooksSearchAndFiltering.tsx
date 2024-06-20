@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
 
 interface SearchFormData {
   searchTerm: string;
@@ -16,15 +17,19 @@ export default function BooksSearchAndFiltering({
 }: BookSearchFormProps) {
   const { register, handleSubmit } = useForm<SearchFormData>();
 
-  const onSubmit: SubmitHandler<SearchFormData> = (data) => {
-    onSearch(data);
-  };
+  const onSubmit: SubmitHandler<SearchFormData> = useDebouncedCallback(
+    (data) => {
+      onSearch(data);
+    },
+    500
+  );
 
   return (
     <div className="pl-4">
       <form
         className="grid grid-cols-1 gap-4"
         onSubmit={handleSubmit(onSubmit)}
+        onChange={handleSubmit(onSubmit)}
       >
         <label className="text-center font-semibold pt-4" htmlFor="searchBook">
           Search Book{" "}
